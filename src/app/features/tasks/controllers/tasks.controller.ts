@@ -6,6 +6,7 @@ import { TasksRepository } from "../repositories/tasks.repository";
 import { CreateTaskUseCase } from "../usecases/create-task.usecase";
 import { GetTaskUseCase } from "../usecases/get-tasks.usecase";
 import { ListTasksUseCase } from "../usecases/list-tasks.usecase";
+import { UpdateTaskUseCase } from "../usecases/update-task.usecase";
 
 export class TasksController {
   public async listTask(req: Request, res: Response) {
@@ -51,7 +52,7 @@ export class TasksController {
     }
   }
 
-  /*  public async updateTask(req: Request, res: Response) {
+  public async updateTask(req: Request, res: Response) {
     try {
       const { taskId } = req.params;
       const { title, description } = req.body;
@@ -60,7 +61,11 @@ export class TasksController {
         new TasksRepository(),
         new CacheRepository()
       );
-      const result = await usecase.execute(taskId);
+      const result = await usecase.execute({
+        taskId,
+        title,
+        description,
+      });
 
       if (!result) {
         return res.status(404).send({
@@ -69,15 +74,10 @@ export class TasksController {
         });
       }
 
-      const resultUpdate = repository.update(result, {
-        title,
-        description,
-      });
-
       return res.status(200).send({
         ok: true,
         message: "Tarefa atualizada com sucesso",
-        data: resultUpdate,
+        data: result,
       });
     } catch (error: any) {
       return res.status(500).send({
@@ -86,7 +86,7 @@ export class TasksController {
         error: error.toString(),
       });
     }
-  } */
+  }
 
   public async createTask(req: Request, res: Response) {
     try {

@@ -1,8 +1,8 @@
-/* import { CacheRepository } from "../../../shared/repositories/cache.repository";
+import { CacheRepository } from "../../../shared/repositories/cache.repository";
 import { TasksRepository } from "../repositories/tasks.repository";
 
 interface UpdateTaskDTO {
-  id: string;
+  taskId: string;
   title?: string;
   description?: string;
 }
@@ -14,7 +14,7 @@ export class UpdateTaskUseCase {
   ) {}
 
   public async execute(data: UpdateTaskDTO) {
-    const task = await this.repository.getById(data.id);
+    const task = await this.repository.getById(data.taskId);
 
     if (!task) {
       return null;
@@ -31,4 +31,3 @@ export class UpdateTaskUseCase {
     return result;
   }
 }
- */

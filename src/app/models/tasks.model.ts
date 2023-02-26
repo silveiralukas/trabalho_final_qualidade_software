@@ -16,8 +16,16 @@ export class TasksModel {
     return this._title;
   }
 
+  public set title(title: string) {
+    this._title = title;
+  }
+
   public get description() {
     return this._description;
+  }
+
+  public set description(description: string) {
+    this._description = description;
   }
 
   public get user() {
