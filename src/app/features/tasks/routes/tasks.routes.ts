@@ -7,18 +7,14 @@ const tasksRoutes = Router({
 
 //---------------TasksRoutes--------------
 
-tasksRoutes.get("/:userId", new TasksController().listTask);
+tasksRoutes.get("/", new TasksController().listTask);
 
 tasksRoutes.get("/:id", new TasksController().getById);
 
 tasksRoutes.post("/:userId", new TasksController().createTask);
 
-tasksRoutes.put("/:taskId", (req: Request, res: Response) =>
-  new TasksController().updateTask(req, res)
-);
+tasksRoutes.put("/:taskId", new TasksController().updateTask);
 
-tasksRoutes.delete("/:userId/:taskId", (req: Request, res: Response) =>
-  new TasksController().deleteTask(req, res)
-);
+tasksRoutes.delete("/:taskId", new TasksController().deleteTask);
 
 export { tasksRoutes };

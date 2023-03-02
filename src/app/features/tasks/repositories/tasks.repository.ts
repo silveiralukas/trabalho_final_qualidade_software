@@ -75,9 +75,7 @@ export class TasksRepository {
   }
 
   public async delete(id: string) {
-    return await this._repository.delete({
-      id,
-    });
+    return await this._repository.delete(id);
   }
 
   private mapEntityToModel(taskEntity: TasksEntity, userModel?: UserModel) {

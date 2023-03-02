@@ -4,6 +4,7 @@ import { serverError, success } from "../../../shared/util/response.helper";
 import { UserRepository } from "../../user/repositories/user.repository";
 import { TasksRepository } from "../repositories/tasks.repository";
 import { CreateTaskUseCase } from "../usecases/create-task.usecase";
+import { DeleteTaskUseCase } from "../usecases/delete-task.usecase";
 import { GetTaskUseCase } from "../usecases/get-tasks.usecase";
 import { ListTasksUseCase } from "../usecases/list-tasks.usecase";
 import { UpdateTaskUseCase } from "../usecases/update-task.usecase";
@@ -120,10 +121,14 @@ export class TasksController {
 
   public async deleteTask(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { taskId } = req.params;
 
-      const repository = new TasksRepository();
-      const result = await repository.delete(id);
+      const usecase = new DeleteTaskUseCase(
+        new TasksRepository(),
+        new CacheRepository()
+      );
+
+      const result = await usecase.execute({ taskId });
 
       return res.status(200).send({
         ok: true,
