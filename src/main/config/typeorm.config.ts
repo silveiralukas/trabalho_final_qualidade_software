@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
 import { appEnv } from "../../app/envs/app.env";
+import { UserEntity } from "../../app/shared/entities/users.entity";
+import { TasksEntity } from "../../app/shared/entities/tasks.entity";
 
 let dataSource = new DataSource({
   type: "postgres",
@@ -9,7 +11,7 @@ let dataSource = new DataSource({
     rejectUnauthorized: false,
   },
   synchronize: false,
-  entities: ["src/app/shared/entities/**/*.ts"],
+  entities: [UserEntity, TasksEntity],
   migrations: ["src/app/shared/migrations/**/*.ts"],
   schema: "trabalho_final",
 });
